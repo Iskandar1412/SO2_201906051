@@ -9,6 +9,7 @@
 // conversión a archivo .bin
 // gcc -o <nombre_archivo>.bin <nombre_archivo>.c
 
+//#define FILEPATH "../File/practica1.txt"
 #define FILEPATH "./File/practica1.txt"
 
 int main() {
