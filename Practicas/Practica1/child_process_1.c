@@ -6,7 +6,10 @@
 #include <unistd.h>
 #include <time.h>
 
-#define FILEPATH "../File/practica1.txt"
+// conversión a archivo .bin
+// gcc -o <nombre_archivo>.bin <nombre_archivo>.c
+
+#define FILEPATH "./File/practica1.txt"
 
 int main() {
     int file, call;
