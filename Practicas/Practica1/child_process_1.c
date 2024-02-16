@@ -50,7 +50,7 @@ int main() {
         call = rand() % 3;
         switch (call) {
         case 0: //read file
-            printf("Opcion: 0\n");
+            //printf("Opcion: 0\n");
             int readed = read(file, palabra, 8);
             //if (readed > 0) {
             //    palabra[readed] = '\0';
@@ -62,7 +62,7 @@ int main() {
             read_calls++;
             break;
         case 1: //write file
-            printf("Opcion: 1\n");
+            //printf("Opcion: 1\n");
             for (int i = 0; i < 8; i++) { palabra[i] = rand() % 26 + 'a'; }
             palabra[8] = '\0';
             write(file, palabra, 8);
@@ -70,7 +70,7 @@ int main() {
             write_calls++;
             break;
         case 2: //seek file
-            printf("Opcion: 2\n");
+            //printf("Opcion: 2\n");
             lseek(file, 0, SEEK_SET);
             total_calls++;
             seek_calls++;
