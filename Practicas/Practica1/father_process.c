@@ -31,6 +31,7 @@ int main() {
         perror("fork");
         exit(EXIT_FAILURE);
     }
+
     if (pid_hijo1 == 0) {
         close(pipefd[READ_END]);
         char msg1[] = "Hijo 1";
@@ -48,6 +49,7 @@ int main() {
         perror("fork");
         exit(EXIT_FAILURE);
     }
+
     if (pid_hijo2 == 0) {
         close(pipefd[READ_END]);
         char msg2[] = "Hijo 2";
@@ -61,13 +63,13 @@ int main() {
     }
 
     close(pipefd[READ_END]);
+    close(pipefd[WRITE_END]);
 
     char buffer[100];
     read(pipefd[READ_END], buffer, sizeof(buffer));
     printf("Proceso: %s\n", buffer);
 
     close(pipefd[READ_END]);
-    close(pipefd[WRITE_END]);
 
     char command[100];
     sprintf(command, "%s %d %d %s", "sudo stap ../trace.stp ", pid_hijo1, pid_hijo2, "  > syscalls.log");
