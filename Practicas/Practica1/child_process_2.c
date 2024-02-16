@@ -81,10 +81,7 @@ int main() {
         nanosleep(&ts, NULL);
     }
 
-    printf("Total Llamadas [Child 2]: %d\n", total_calls);
-    printf("Read: %d - ", read_calls);
-    printf("Write: %d - ", write_calls);
-    printf("Seek: %d\n", seek_calls);
+    printf("Total Llamadas [Child 2]: %d\n\tRead: %d - Write: %d - Seek: %d\n", total_calls, read_calls, write_calls, seek_calls);
     close(file);
 
     return 0;
