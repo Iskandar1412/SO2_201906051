@@ -2,18 +2,56 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <unistd.h>
 #include <signal.h>
 #include <time.h>
 
-//variables globales
-int llamadas_tot = 0;
-int contador_llamadas[3] = {0};
+#define READ_END 0
+#define WRITE_END 1
 
-//ctrl + c
-void signal_SIGINT() {
-    int i;
+// Ctrl + C
+void Syscall_SIGINT() {
+    printf("Cerrando el Programa");
+    exit(0);
 }
 
 int main() {
+    pid_t pid_hijo1, pid_hijo2;
+
+
+    signal(SIGINT, Syscall_SIGINT);
+
+    pid_hijo1 = fork();
+    if (pid_hijo1 == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_hijo1 == 0) {
+        execl("../child_process_1.bin", "child_process_1.bin", NULL);
+        perror("Error al ejecutar el proceso hijo 1");
+        exit(EXIT_FAILURE);
+    } else {
+        perror("Error al ejecutar el proceso hijo");
+        waitpid(pid_hijo1, NULL, 0);
+        exit(EXIT_FAILURE);
+    }
+
+    pid_hijo2 = fork();
+    if (pid_hijo2 == -1) {
+        perror("fork");
+        exit(EXIT_FAILURE);
+    }
+    if (pid_hijo2 == 0) {
+        execl("../child_process_2.bin", "child_process_2.bin", NULL);
+        perror("Error al ejecutar el proceso hijo 2");
+        exit(EXIT_FAILURE);
+    } else {
+        perror("Error al ejecutar el proceso hijo");
+        waitpid(pid_hijo2, NULL, 0);
+        exit(EXIT_FAILURE);
+    }
+
+    
+
     return 0;
 }
