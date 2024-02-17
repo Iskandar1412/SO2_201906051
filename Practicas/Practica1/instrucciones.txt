@@ -1,0 +1,17 @@
+#instalar SystemStap
+
+sudo apt-get install systemtap linux-headers-$(uname -r)
+
+#activar modulo SystemStap
+
+sudo modprobe stapdev
+
+#agregar permisos SystemStap
+
+sudo usermod -a -G stapdev <tu_usuario>
+
+#Reiniciar sistema
+
+#Se puede ahora usar el comando
+
+sudo stap -g <archivo>.stp

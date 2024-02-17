@@ -1,0 +1,13 @@
+probe syscall.read {
+    if (pid() == $1 || pid() == $2) {
+        ts = gettimeofday_s();
+        printf("%s %d: %s (%s)\n", execname(), pid(), name, ctime(ts))
+    }
+}
+
+probe syscall.write {
+    if (pid() == $1 || pid() == $2) {
+        ts = gettimeofday_s();
+        printf("%s %d: %s (%s)\n", execname(), pid(), name, ctime(ts))
+    }
+}
