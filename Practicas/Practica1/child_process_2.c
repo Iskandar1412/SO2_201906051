@@ -18,15 +18,12 @@ int seek_calls = 0;
 
 #define FILEPATH "../File/practica1.txt"
 
-// Variable global para indicar si se recibió la señal SIGINT
 volatile sig_atomic_t sigint_received = 0;
 
-// Función para manejar la señal SIGINT
 void sigint_handler(int sig) {
     sigint_received = 1;
 }
 
-// Función para manejar la señal SIGTERM
 void sigterm_handler(int sig) {
     printf("El proceso hijo se ha cerrado\n");
     exit(0);
