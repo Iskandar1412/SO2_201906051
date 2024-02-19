@@ -8,10 +8,13 @@
 
 #define READ_END 0
 #define WRITE_END 1
-
+pid_t pid_hijo1, pid_hijo2, pid_monitor;
 // Ctrl + C
 void Syscall_SIGINT() {
    printf("Cerrando el Programa\n");
+   kill(pid_hijo1, SIGINT);
+   kill(pid_hijo2, SIGINT);
+   kill(pid_monitor, SIGINT);
    exit(0);
 }
 
@@ -19,7 +22,7 @@ int main() {
 
    signal(SIGINT, Syscall_SIGINT);
 
-   pid_t pid_hijo1 = fork();
+   pid_hijo1 = fork();
    if (pid_hijo1 == -1) {
       perror("fork");
       exit(EXIT_FAILURE);
@@ -30,7 +33,7 @@ int main() {
       perror("Error al ejecutar el proceso hijo 1");
       exit(EXIT_FAILURE);
    } else {
-      pid_t pid_hijo2 = fork();
+      pid_hijo2 = fork();
       if (pid_hijo2 == -1) {
          perror("fork");
          exit(EXIT_FAILURE);
@@ -40,7 +43,7 @@ int main() {
          perror("Error al ejecutar el proceso hijo 2");
          exit(EXIT_FAILURE);
       } else {
-         pid_t pid_monitor = fork();
+         pid_monitor = fork();
          if (pid_monitor == -1) {
             perror("fork");
             exit(EXIT_FAILURE);

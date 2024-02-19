@@ -42,8 +42,8 @@ int main() {
         perror("[Child] Error al abrir archivo");
         exit(EXIT_FAILURE);
     }
-
     while(!sigint_received) {
+        int timeapt = rand() % 3 + 1;
         call = rand() % 3;
         switch (call) {
         case 0: //read file
@@ -57,6 +57,7 @@ int main() {
             //}
             total_calls++;
             read_calls++;
+            //timeapt = rand() % 3 + 1;
             break;
         case 1: //write file
             //printf("Opcion: 1\n");
@@ -65,17 +66,18 @@ int main() {
             write(file, palabra, 8);
             total_calls++;
             write_calls++;
+            //timeapt = rand() % 3 + 1;
             break;
         case 2: //seek file
             //printf("Opcion: 2\n");
             lseek(file, 0, SEEK_SET);
             total_calls++;
             seek_calls++;
+            //timeapt = rand() % 3 + 1;
             break;
         }
-        ts.tv_sec = rand() % 3 + 1;
-        ts.tv_nsec = 0;
-        nanosleep(&ts, NULL);
+        sleep(timeapt);
+        timeapt = rand() % 3 + 1;
     }
 
     printf("Total Llamadas [Child 2]: %d\n\tRead: %d - Write: %d - Seek: %d\n", total_calls, read_calls, write_calls, seek_calls);
