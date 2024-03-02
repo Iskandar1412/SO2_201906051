@@ -10,6 +10,13 @@
 |[T_01](.)|[PDF](./Manuales/Tareas/)|---|
 |[T_02](.)|[MD](./Manuales/Tareas/)|---|
 
+### Hojas de Trabajo
+
+|CARPETA|PDF/Video|Fecha Entrega|
+|:---|:-:|:-:|
+|[HT_01](./HTs/HT2/)|[PDF](./Manuales/HTs/[SO1]HT2_201906051.pdf)|---|
+|[HT_02](.)|[MD](./Manuales/Tareas/)|---|
+
 ### Prácticas
 
 |CARPETA|MD|Fecha Entrega|Prorroga|
@@ -43,6 +50,15 @@
         </tr>
         <tr>
             <td rowspan=1 align="center"><a href="./Enunciados/Tareas/">---</a></td>
+            <td align="center">---</td>
+        </tr>
+        <tr>
+            <td rowspan=2 align="center">Hojas de Trabajo</td>
+            <td rowspan=1 align="center"><a href="./Enunciados/HTs/SO2_HT2.pdf">Hoja de Trabajo 2</a></td>
+            <td align="center">03/01</td>
+        </tr>
+        <tr>
+            <td rowspan=1 align="center"><a href="./Enunciados/HTs/">---</a></td>
             <td align="center">---</td>
         </tr>
         <tr>
