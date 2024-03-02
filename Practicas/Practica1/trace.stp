@@ -11,3 +11,5 @@ probe syscall.write {
         printf("%s %d: %s (%s)\n", execname(), pid(), name, ctime(ts))
     }
 }
+
+//Falto el seek
