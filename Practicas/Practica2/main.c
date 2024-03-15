@@ -95,7 +95,7 @@ void* load_operations(void* arg) {
 
 
 int main() {
-    // Inicializar hilos para cargar usuarios y operaciones
+    // Declarar hilos
     pthread_t user_threads[3];
     pthread_t operation_threads[4];
 
