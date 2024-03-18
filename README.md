@@ -22,7 +22,7 @@
 |CARPETA|MD|Fecha Entrega|Prorroga|
 |:-:|:-:|:-:|:-:|
 |[Pr1](./Practicas/Practica1/)|[View](./Manuales/Practicas/ManualPr1.md/)|19/Febrero/2024|---|
-|[Pr2](.)|[View](./Manuales/Practicas/)|---|---|
+|[Pr2](./Practicas/Practica2/)|[View](./Manuales/Practicas/ManualPr2.md)|17/Marzo/2024|---|
 
 
 ### Proyectos
@@ -67,8 +67,8 @@
             <td align="center">02/19</td>
         </tr>
         <tr>
-            <td rowspan=1 align="center"><a href="./Enunciados/Practicas/">Práctica 2</a></td>
-            <td align="center">---</td>
+            <td rowspan=1 align="center"><a href="./Enunciados/Practicas/Practica_2.pdf">Práctica 2</a></td>
+            <td align="center">03/17</td>
         </tr>
         <tr>
             <td rowspan=2 align="center">Proyecto</td>

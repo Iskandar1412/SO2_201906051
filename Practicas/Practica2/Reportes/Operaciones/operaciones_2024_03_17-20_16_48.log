@@ -1,0 +1,37 @@
+-------------------- Carga de Operaciones --------------------
+2024-03-17 20:16:48
+Operaciones Realizadas: 
+Retiros: 59
+Depositos: 71
+Transferencias: 66
+Desconocidos: 4
+Total: 200
+
+Operaciones por Hilo: 
+Hilo #1: 50
+Hilo #2: 50
+Hilo #3: 50
+Hilo #4: 50
+Total: 200
+
+Errores: 
+ - Linea #6:	Operacion Invalida
+ - Linea #24:	[Retiro]: Monto no Valido
+ - Linea #32:	[Transferencia]: No existe la cuenta 1
+ - Linea #49:	Operacion Invalida
+ - Linea #56:	[Retiro]: Saldo insuficiente
+ - Linea #69:	[Retiro]: No existe la cuenta 1
+ - Linea #93:	[Transferencia]: No existe la cuenta 1
+ - Linea #97:	[Transferencia]: Monto no Valido
+ - Linea #102:	Operacion Invalida
+ - Linea #114:	[Retiro]: No existe la cuenta 1
+ - Linea #125:	[Deposito]: Monto no Valido
+ - Linea #129:	[Transferencia]: No existe la cuenta 2
+ - Linea #130:	[Transferencia]: No existe la cuenta 1
+ - Linea #153:	[Retiro]: Saldo insuficiente
+ - Linea #171:	[Deposito]: No existe la cuenta 1
+ - Linea #185:	[Transferencia]: No existe la cuenta 2
+ - Linea #193:	[Transferencia]: Monto no Valido
+ - Linea #200:	Operacion Invalida
+ - Linea #201:	[Transferencia]: Saldo insuficiente
+--------------------------------------------------------------

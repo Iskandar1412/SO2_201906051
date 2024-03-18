@@ -223,7 +223,7 @@ void* thread_users_function(void* args) {
 }
 
 int CargaUsuarios() {
-    FILE *file = fopen("files/prueba_usuarios.csv", "r");
+    FILE *file = fopen("files/01_usuario.csv", "r");
     if (file == NULL) {
         perror("Error al abrir el archivo");
         return EXIT_FAILURE;
@@ -586,7 +586,7 @@ void* thread_transfers_function(void* args) {
 
 void CargaOperaciones() {
     // printf("ASDFASDF");
-    FILE *file = fopen("files/prueba_transacciones.csv", "r");
+    FILE *file = fopen("files/01_transaccion.csv", "r");
     if (file == NULL) {
         perror("Error al abrir el archivo");
         return;

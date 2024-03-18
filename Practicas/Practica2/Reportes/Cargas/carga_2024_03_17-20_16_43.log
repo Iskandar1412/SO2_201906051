@@ -1,0 +1,20 @@
+--------------------- Carga de Usuarios ---------------------
+2024-03-17 20:16:43
+Usuarios Cargados: 
+Hilo #1: 33
+Hilo #2: 34
+Hilo #3: 33
+Total: 100
+
+Errores: 
+ - Linea #14:	Saldo Invalido
+ - Linea #20:	Saldo Invalido
+ - Linea #40:	No. Cuenta Repetida
+ - Linea #42:	No. Cuenta Repetida
+ - Linea #53:	Saldo Invalido
+ - Linea #54:	No. Cuenta Repetida
+ - Linea #67:	No. Cuenta Repetida
+ - Linea #89:	Saldo Invalido
+ - Linea #98:	Saldo Invalido
+ - Linea #101:	Saldo Invalido
+-------------------------------------------------------------
