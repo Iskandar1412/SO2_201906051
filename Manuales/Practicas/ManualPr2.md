@@ -55,7 +55,6 @@ void ThreadData_init(ThreadData* data, FILE *file) {
     data->current_thread = 0;
     data->finished = false;
 }
-...
 ```
 
 Tambien se cuenta con una clase void la cual se encarga de definir cuando se va a teerminar con el hilo (en este caso cuando termine su proceso respectivo "lectura de una linea").
