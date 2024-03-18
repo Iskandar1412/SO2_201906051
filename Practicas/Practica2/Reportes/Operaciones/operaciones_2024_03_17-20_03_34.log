@@ -1,0 +1,52 @@
+-------------------- Carga de Operaciones --------------------
+2024-03-17 20:03:34
+Operaciones Realizadas: 
+Retiros: 61
+Depositos: 69
+Transferencias: 61
+Desconocidos: 9
+Total: 200
+
+Operaciones por Hilo: 
+Hilo #1: 50
+Hilo #2: 50
+Hilo #3: 50
+Hilo #4: 50
+Total: 200
+
+Errores: 
+ - Linea #2:	[Deposito]: No debe haber una segunda cuenta en depositos
+ - Linea #3:	[Transferencia]: No existe la cuenta 2
+ - Linea #5:	[Transferencia]: No existe la cuenta 2
+ - Linea #11:	[Transferencia]: Monto no Valido
+ - Linea #20:	Operacion Invalida
+ - Linea #29:	[Retiro]: Saldo insuficiente
+ - Linea #39:	Operacion Invalida
+ - Linea #40:	[Retiro]: Saldo insuficiente
+ - Linea #52:	Operacion Invalida
+ - Linea #53:	[Transferencia]: No existe la cuenta 2
+ - Linea #64:	Operacion Invalida
+ - Linea #65:	[Deposito]: No existe la cuenta 1
+ - Linea #73:	[Deposito]: Monto no Valido
+ - Linea #80:	[Retiro]: Saldo insuficiente
+ - Linea #81:	Operacion Invalida
+ - Linea #87:	Operacion Invalida
+ - Linea #125:	[Transferencia]: Monto no Valido
+ - Linea #130:	[Retiro]: Saldo insuficiente
+ - Linea #131:	Operacion Invalida
+ - Linea #141:	[Deposito]: Monto no Valido
+ - Linea #146:	Operacion Invalida
+ - Linea #148:	[Transferencia]: Saldo insuficiente
+ - Linea #164:	[Transferencia]: No existe la cuenta 2
+ - Linea #174:	[Deposito]: Monto no Valido
+ - Linea #175:	[Transferencia]: No existe la cuenta 2
+ - Linea #179:	[Deposito]: No existe la cuenta 1
+ - Linea #180:	[Transferencia]: Saldo insuficiente
+ - Linea #181:	[Transferencia]: Saldo insuficiente
+ - Linea #185:	[Deposito]: Monto no Valido
+ - Linea #188:	[Deposito]: Monto no Valido
+ - Linea #196:	Operacion Invalida
+ - Linea #198:	[Transferencia]: No existe la cuenta 2
+ - Linea #199:	[Deposito]: No existe la cuenta 1
+ - Linea #201:	[Transferencia]: Saldo insuficiente
+--------------------------------------------------------------

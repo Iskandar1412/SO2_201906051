@@ -14,6 +14,7 @@
 //################ HILOS ################
 //################ HILOS ################
 //################ HILOS ################
+
 typedef struct {
     FILE *file;
     pthread_mutex_t mutex;
@@ -33,6 +34,7 @@ void ThreadData_init(ThreadData* data, FILE *file) {
     data->current_thread = 0;
     data->finished = false;
 }
+
 //################ HILOS ################
 //################ HILOS ################
 //################ HILOS ################
@@ -125,7 +127,7 @@ bool Saldo_Positivo(const char *cadena) {
     if (sscanf(cadena, "%lf", &numero) != 1) // Intenta convertir la cadena a un flotante
         return false;
     
-    return numero >= 0.0;
+    return numero > 0.0;
 }
 
 void agregarRegistro(int no_cuenta, const char *nombre, float saldo, int hilo) {
@@ -221,7 +223,7 @@ void* thread_users_function(void* args) {
 }
 
 int CargaUsuarios() {
-    FILE *file = fopen("prueba_usuarios.csv", "r");
+    FILE *file = fopen("files/prueba_usuarios.csv", "r");
     if (file == NULL) {
         perror("Error al abrir el archivo");
         return EXIT_FAILURE;
@@ -243,6 +245,7 @@ int CargaUsuarios() {
     fclose(file);
     return 0;
 }
+
 //############### Usuario ###############
 //############### Usuario ###############
 //############### Usuario ###############
@@ -524,7 +527,7 @@ void Analizar_Operaciones_CSV(char line[], int numero_hilo) {
     if (Cuenta_Positiva(token) == false) {
         AumentarHiloOperaciones(numero_hilo);
         errores_operaciones[num_errores_operaciones].linea  = num_linea_operacion;
-        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "Operacion no Valid");
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "Operacion no Valida");
         num_errores_operaciones++;
         return;
     }
@@ -551,11 +554,7 @@ void Analizar_Operaciones_CSV(char line[], int numero_hilo) {
         num_errores_operaciones++;
         return;
     }
-
-    
-    
 }
-
 
 void* thread_transfers_function(void* args) {
     int thread_id = *((int*)args);
@@ -587,7 +586,7 @@ void* thread_transfers_function(void* args) {
 
 void CargaOperaciones() {
     // printf("ASDFASDF");
-    FILE *file = fopen("prueba_transacciones.csv", "r");
+    FILE *file = fopen("files/prueba_transacciones.csv", "r");
     if (file == NULL) {
         perror("Error al abrir el archivo");
         return;
@@ -613,8 +612,235 @@ void CargaOperaciones() {
 //############# Operaciones #############
 //############# Operaciones #############
 
+//####### Operaciones Individuales #######
+//####### Operaciones Individuales #######
+//####### Operaciones Individuales #######
 
-#include <stdio.h>
+void Deposito_Individual() {
+    num_linea_operacion++;
+    char e_cuenta1[25], e_monto[25];
+    int cuenta1;
+    float monto;
+
+    printf("Ingresar cuenta: ");
+    scanf("%s", &e_cuenta1);
+    if (Cuenta_2_Positiva(e_cuenta1) == false) {
+        printf("Error al ingresar cuenta\n");
+        errores_operaciones[num_errores_operaciones].linea = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Deposito]: Cuenta no Valida");
+        num_errores_operaciones++;
+        return;
+    }
+    cuenta1 = atoi(e_cuenta1);
+    // printf("Ingresar monto: %d\n", cuenta1);
+    printf("Ingresar monto a depositar: ");
+    scanf("%s", &e_monto);
+    if (Saldo_Positivo(e_monto) == false) {
+        printf("Error de monto\n");
+        errores_operaciones[num_errores_operaciones].linea = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Deposito]: Saldo no valido");
+        num_errores_operaciones++;
+        return;
+    }
+    monto = atof(e_monto);
+
+    if (existeCuenta(cuenta1) == false) {
+        printf("Error cuenta no existente\n");
+        // AumentarHiloOperaciones(numero_hilo);
+        errores_operaciones[num_errores_operaciones].linea  = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Deposito]: No existe la cuenta");
+        num_errores_operaciones++;
+        return;
+    }
+
+    for (int i = 0; i<num_registros; i++) {
+        if (registros[i].no_cuenta == cuenta1) {
+            registros[i].saldo += monto;
+            // AumentarHiloOperaciones(numero_hilo);
+            // tipo_operacion.depositos ++;
+            return;
+        }
+    }
+}
+
+void Retiro_Individual() {
+    num_linea_operacion++;
+    char e_cuenta1[25], e_monto[25];
+    int cuenta1;
+    float monto;
+
+    printf("Ingresar cuenta: ");
+    scanf("%s", &e_cuenta1);
+    if (Cuenta_2_Positiva(e_cuenta1) == false) {
+        printf("Error en ingresar cuenta\n");
+        errores_operaciones[num_errores_operaciones].linea = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Retiro]: Cuenta no Valida");
+        num_errores_operaciones++;
+        return;
+    }
+    cuenta1 = atoi(e_cuenta1);
+    // printf("Ingresar monto: %d\n", cuenta1);
+    printf("Ingresar monto a retirar: ");
+    scanf("%s", &e_monto);
+    if (Saldo_Positivo(e_monto) == false) {
+        printf("Error en el monto\n");
+        errores_operaciones[num_errores_operaciones].linea = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Retiro]: Saldo no valido");
+        num_errores_operaciones++;
+        return;
+    }
+    monto = atof(e_monto);
+
+    if (existeCuenta(cuenta1) == false) {
+        printf("Cuenta no existente\n");
+        // AumentarHiloOperaciones(numero_hilo);
+        errores_operaciones[num_errores_operaciones].linea  = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Retiro]: No existe la cuenta");
+        num_errores_operaciones++;
+        return;
+    }
+
+    for (int i = 0; i<num_registros; i++) {
+        if (registros[i].no_cuenta == cuenta1) {
+            if (registros[i].saldo < monto) {
+                printf("Error de monto\n");
+                // AumentarHiloOperaciones(numero_hilo);
+                errores_operaciones[num_errores_operaciones].linea  = num_linea_operacion;
+                strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Retiro]: Saldo insuficiente");
+                num_errores_operaciones++;
+                return;
+            }
+            registros[i].saldo -= monto;
+            // AumentarHiloOperaciones(numero_hilo);
+            // tipo_operacion.depositos ++;
+            return;
+        }
+    }
+}
+
+void Transferencia_Individual() {
+    num_linea_operacion++;
+    char e_cuenta1[25], e_cuenta2[25], e_monto[25];
+    int cuenta1, cuenta2;
+    float monto;
+
+    printf("Ingresar cuenta (sacar): ");
+    scanf("%s", &e_cuenta1);
+    if (Cuenta_2_Positiva(e_cuenta1) == false) {
+        printf("Error de cuenta\n");
+        errores_operaciones[num_errores_operaciones].linea = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Transferencia]: Cuenta no Valida");
+        num_errores_operaciones++;
+        return;
+    }
+    cuenta1 = atoi(e_cuenta1);
+
+    printf("Ingresar cuenta (Transferir): ");
+    scanf("%s", &e_cuenta2);
+    if (Cuenta_2_Positiva(e_cuenta2) == false) {
+        printf("Error de cuenta\n");
+        errores_operaciones[num_errores_operaciones].linea = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Transferencia]: Cuenta no Valida");
+        num_errores_operaciones++;
+        return;
+    }
+    cuenta2 = atoi(e_cuenta2);
+
+    // printf("Ingresar monto: %d\n", cuenta1);
+    printf("Ingresar monto a debitar: ");
+    scanf("%s", &e_monto);
+    if (Saldo_Positivo(e_monto) == false) {
+        printf("Error en el saldo\n");
+        errores_operaciones[num_errores_operaciones].linea = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Transferencia]: Saldo no valido");
+        num_errores_operaciones++;
+        return;
+    }
+    monto = atof(e_monto);
+
+    if (existeCuenta(cuenta1) == false) {
+        printf("Cuenta 1 no existente\n");
+        // AumentarHiloOperaciones(numero_hilo);
+        errores_operaciones[num_errores_operaciones].linea  = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Transferencia]: No existe la cuenta");
+        num_errores_operaciones++;
+        return;
+    }
+
+    if (existeCuenta(cuenta2) == false) {
+        printf("Cuenta 2 no existente\n");
+        // AumentarHiloOperaciones(numero_hilo);
+        errores_operaciones[num_errores_operaciones].linea  = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Transferencia]: No existe la cuenta 2");
+        num_errores_operaciones++;
+        return;
+    }
+
+    for (int i = 0; i < num_registros; i++) {
+        for (int j = 0; j < num_registros; j++) {
+            if ((registros[i].no_cuenta == cuenta1) && (registros[j].no_cuenta == cuenta2)) {
+                if (registros[i].saldo < monto) {
+                    printf("Error de monto\n");
+                    // AumentarHiloOperaciones(numero_hilo);
+                    errores_operaciones[num_errores_operaciones].linea  = num_linea_operacion;
+                    strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Transferencia]: Saldo insuficiente");
+                    num_errores_operaciones++;
+                    return;
+                }
+                registros[j].saldo += monto;
+                registros[i].saldo -= monto;
+                // AumentarHiloOperaciones(numero_hilo);
+                // tipo_operacion.depositos ++;
+                return;
+            }
+        }
+    }
+}
+
+void Ver_Cuenta() {
+    // num_linea_operacion++;
+    char e_cuenta1[25];
+    int cuenta1;
+
+    printf("Ingresar cuenta a consultar: ");
+    scanf("%s", &e_cuenta1);
+    if (Cuenta_2_Positiva(e_cuenta1) == false) {
+        printf("Error de cuenta\n");
+        errores_operaciones[num_errores_operaciones].linea = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Transferencia]: Cuenta no Valida");
+        num_errores_operaciones++;
+        return;
+    }
+    cuenta1 = atoi(e_cuenta1);
+
+    if (existeCuenta(cuenta1) == false) {
+        printf("Cuenta no existente\n");
+        // AumentarHiloOperaciones(numero_hilo);
+        errores_operaciones[num_errores_operaciones].linea  = num_linea_operacion;
+        strcpy(errores_operaciones[num_errores_operaciones].descripcion, "[Transferencia]: No existe la cuenta");
+        num_errores_operaciones++;
+        return;
+    }
+
+    for (int i = 0; i < num_registros; i++) {
+        if (registros[i].no_cuenta == cuenta1) {
+            printf("Información Cuenta ----------\n");
+            printf("No: %d\n", registros[i].no_cuenta);
+            printf("Nombre: %s\n", registros[i].nombre);
+            printf("Saldo: %.2f\n", registros[i].saldo);
+            printf("Información Cuenta ----------\n");
+            return;
+        }
+    }
+}
+
+//####### Operaciones Individuales #######
+//####### Operaciones Individuales #######
+//####### Operaciones Individuales #######
+//----------------------------------------
+//################# MENU #################
+//################# MENU #################
+//################# MENU #################
 
 int main() {
     int opcion;
@@ -657,8 +883,8 @@ int main() {
                 printf("Generando Reportes...\n");
                 //Función Generar Reportes
                 Estado_Cuentas();
-                Rep_Carga_Usuarios();
-                Rep_Carga_Operaciones();
+                // Rep_Carga_Usuarios();
+                // Rep_Carga_Operaciones();
                 printf("\n");
                 break;
             case 5:
@@ -688,8 +914,8 @@ void Operaciones_Individuales() {
         printf("1. Deposito\n");
         printf("2. Retiro\n");
         printf("3. Transferencia\n");
-        printf("3. Consulta de Cuenta\n");
-        printf("4. Salir\n");
+        printf("4. Consulta de Cuenta\n");
+        printf("5. Salir\n");
 
         printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
@@ -698,22 +924,29 @@ void Operaciones_Individuales() {
             case 1:
                 printf("Deposito\n");
                 //funcion para carga de usuarios
+                Deposito_Individual();
+                printf("\n");
                 break;
             case 2:
                 printf("Retiro\n");
                 // Operaciones_Individuales();
+                Retiro_Individual();
                 printf("\n");
                 break;
             case 3:
                 printf("Transferencia\n");
+                Transferencia_Individual();
+                printf("\n");
                 //funcion carga operaciones
                 break;
             case 4:
                 printf("Consulta Cuenta\n");
+                Ver_Cuenta();
+                printf("\n");
                 //funcion carga operaciones
                 break;
             case 5:
-                printf("Saliendo del Menu\n");
+                printf("Saliendo del Menu (Operaciones Individuales)\n");
                 break;
             default:
                 printf("Syntax Error\n");
@@ -722,6 +955,10 @@ void Operaciones_Individuales() {
     } while (opcion != 5);
     return;
 }
+
+//################# MENU #################
+//################# MENU #################
+//################# MENU #################
 
 //############## Generación Reportes ##############
 //############## Generación Reportes ##############
@@ -776,7 +1013,7 @@ void Rep_Carga_Usuarios() {
     fprintf(reporte_usuarios, "\n");
     fprintf(reporte_usuarios, "Errores: \n");
     for (int i = 0; i < num_errores_registros; i++) {
-        fprintf(reporte_usuarios, " - Linea #%d: %s\n", errores_usuarios[i].linea, errores_usuarios[i].descripcion);
+        fprintf(reporte_usuarios, " - Linea #%d:\t%s\n", errores_usuarios[i].linea, errores_usuarios[i].descripcion);
     }
     fprintf(reporte_usuarios, "-------------------------------------------------------------\n");
     fclose(reporte_usuarios);
@@ -824,10 +1061,14 @@ void Rep_Carga_Operaciones() {
     fprintf(reporte_usuarios, "\n");
     fprintf(reporte_usuarios, "Errores: \n");
     for (int i = 0; i < num_errores_operaciones; i++) {
-        printf("%d\n", errores_operaciones[i].linea);
-        fprintf(reporte_usuarios, " - Linea #%d: %s\n", errores_operaciones[i].linea, errores_operaciones[i].descripcion);
+        // printf("%d\n", errores_operaciones[i].linea);
+        fprintf(reporte_usuarios, " - Linea #%d:\t%s\n", errores_operaciones[i].linea, errores_operaciones[i].descripcion);
     }
     fprintf(reporte_usuarios, "--------------------------------------------------------------\n");
     fclose(reporte_usuarios);
     return;
 }
+
+//############## Generación Reportes ##############
+//############## Generación Reportes ##############
+//############## Generación Reportes ##############
